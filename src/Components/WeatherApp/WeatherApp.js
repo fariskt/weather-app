@@ -17,10 +17,14 @@ const WeatherApp =()=> {
   const [wicon , setWicon] = useState(cloud_icon);
 
   const search = async ()=>{
+
+    
+
     const element = document.getElementsByClassName("cityInput")
     if(element[0].value === ""){
         return 0;
-    }
+    };
+
     let url =`https://api.openweathermap.org/data/2.5/weather?q=${element[0].value}&units=Metric&appid=${api_key}`;
 
     let response = await fetch(url);
@@ -65,7 +69,11 @@ const WeatherApp =()=> {
   return (
     <div className='container'>
         <div className="top-bar">
-            <input type="text" className='cityInput' placeholder='Search...'/>
+            <input type="text" className='cityInput' placeholder='Search...' onKeyDown={(e)=> {
+                if(e.key === "Enter" ){
+                    search();
+                }
+            }}/>
             <div className="search-icon" onClick={()=> {search()}}>
                 <img src={search_icon} alt="search icon" />
             </div>
